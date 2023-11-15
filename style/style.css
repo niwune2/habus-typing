@@ -14,3 +14,16 @@ body {
     background-color: #FFFF00;
     /* 背景色を変更するカーソルのスタイル */
 }
+
+#textContainer {
+    font-size: 20px;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.5;
+    position: relative;
+}
+
+.highlight {
+    color: white;
+    background-color: #1a009b;
+    /* 背景色を変更するカーソルのスタイル */
+}

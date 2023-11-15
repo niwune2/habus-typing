@@ -1,24 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="style/style.css">
-    <script defer src="script/script.js"></script>
-    <title>タイピング</title>
-</head>
-
-<body>
-    <h1>タイピングソフト制作中</h1>
-    <p>テストテキスト</p>
-    <div id="dom"></div>
-    <div id="textContainer">なまむぎなまごめなまたまご</div>
-    <div id="cursor"></div>
-    <br>
-    <canvas id="canvas"></canvas>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,76 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typing Game with Cursor</title>
-    <style>
-        #textContainer {
-            font-size: 20px;
-            font-family: 'Arial', sans-serif;
-            line-height: 1.5;
-            position: relative;
-        }
-
-        .highlight {
-            color: white;
-            background-color: #1a009b;
-            /* 背景色を変更するカーソルのスタイル */
-        }
-    </style>
+    <link href="style/style.css" rel="stylesheet">
 </head>
 
 <body>
     <div id="textContainer">なまむぎなまごめなまたまご</div>
+    <script src="script/script1.js" defer></script>
 
-    <script>
-        const textContainer = document.getElementById('textContainer');
-        const characters = textContainer.textContent.split('');
-        let cursorPosition = 0;
-
-        // キー入力を検知する
-        document.addEventListener('keydown', handleKeyDown);
-
-        function handleKeyDown(event) {
-            // 何かしらのキーが押されたときにカーソルを進める
-            moveCursor();
-        }
-
-        function moveCursor() {
-            if (cursorPosition < characters.length) {
-                // 前の文字の背景色をリセット
-                resetPreviousCharacter();
-
-                // カーソル位置の文字に対して背景色を変更
-                characters[cursorPosition] = `<span class="highlight">${characters[cursorPosition]}</span>`;
-                textContainer.innerHTML = characters.join('');
-
-                // カーソルの位置を次の文字に移動
-                cursorPosition++;
-
-                // カーソルが最後の文字に達したらリセット
-                if (cursorPosition === characters.length) {
-                    resetCursor();
-                }
-            }
-        }
-
-        function resetPreviousCharacter() {
-            // 前の文字の背景色をリセット
-            if (cursorPosition > 0) {
-                characters[cursorPosition - 1] = characters[cursorPosition - 1].replace('<span class="highlight">', '').replace('</span>', '');
-                textContainer.innerHTML = characters.join('');
-            }
-        }
-
-        function resetCursor() {
-            cursorPosition = 0;
-
-            // 全ての文字の背景色をリセット
-            characters.forEach((character, index) => {
-                characters[index] = character.replace('<span class="highlight">', '').replace('</span>', '');
-            });
-
-            textContainer.innerHTML = characters.join('');
-        }
-    </script>
+    <canvas id="canvas"></canvas>
 </body>
 
 </html>
