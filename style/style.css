@@ -27,3 +27,7 @@ body {
     background-color: #1a009b;
     /* 背景色を変更するカーソルのスタイル */
 }
+
+canvas {
+    border: 1px solid black;
+}
