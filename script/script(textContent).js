@@ -18,12 +18,9 @@ function draw() {
 draw();
 
 // キー入力を検知する
-document.addEventListener('keydown', handleKeyDown);
-
-function handleKeyDown(event) {
-    // 何かしらのキーが押されたときにカーソルを進める
-    moveCursor();
-}
+document.addEventListener('keydown', () => {
+    moveCursor(); // 何かしらのキーが押されたときにカーソルを進める
+});
 
 function moveCursor() {
     if (cursorPosition < characters.length) {
