@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>2023&sol;11&sol;18</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+/* From extension bierner.markdown-checkbox */
+.contains-task-list {
+    padding-left: 0;
+}
+
+.contains-task-list li {
+    margin-left: 24px;
+}
+
+.contains-task-list .task-list-item {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.contains-task-list .contains-task-list {
+    padding-left: 20px;
+} 
+/* From extension marp-team.marp-vscode */
+#__marp-vscode {
+  all: revert;
+}
+
+/* Override VS Code default CSS rules reverting to initial
+   https://github.com/microsoft/vscode/blob/master/src/vs/workbench/contrib/webview/browser/pre/main.js#L53 */
+body.marp-vscode {
+  padding: 0;
+}
+
+body.marp-vscode img {
+  max-width: unset;
+  max-height: unset;
+}
+
+body.marp-vscode a,
+body.marp-vscode a:hover,
+body.marp-vscode code {
+  color: unset;
+}
+
+body.marp-vscode blockquote {
+  background: unset;
+  border-color: unset;
+}
+
+@media screen {
+  body.marp-vscode {
+    overflow-y: scroll;
+  }
+
+  #__marp-vscode [data-marp-vscode-slide-wrapper] {
+    margin: 20px;
+  }
+
+  #__marp-vscode svg[data-marpit-svg] {
+    box-shadow: 0 5px 10px rgb(0 0 0 / 25%);
+    display: block;
+    margin: 0;
+  }
+
+  /* Based on https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+  #code-csp-warning {
+    background-color: #444;
+    box-shadow: 1px 1px 1px rgb(0 0 0 / 25%);
+    color: white;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 22px;
+    margin: 16px;
+    padding: 6px;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    top: 0;
+    word-wrap: break-word;
+  }
+
+  #code-csp-warning:hover {
+    text-decoration: none;
+    background-color: #007acc;
+    box-shadow: 2px 2px 2px rgb(0 0 0 / 25%);
+  }
+}
+
+@media print {
+  body.marp-vscode #code-csp-warning {
+    display: none;
+  }
+}
+
+/* From extension tsutsu3.markdown-named-codeblocks */
+.named-fence-block {
+  position: relative;
+  padding-top: 2em !important;
+}
+
+.named-fence-filename {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 4px;
+  font-weight: bold;
+  color: #000000;
+  background: #c0c0c0;
+  opacity: 0.6;
+}
+
+</style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h2 id="20231118">2023/11/18</h2>
+<pre><code class="language-js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Typing</span> {
+    <span class="hljs-comment">//?</span>
+}
+
+<span class="hljs-keyword">const</span> dom = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;dom&#x27;</span>);
+
+<span class="hljs-keyword">const</span> textContainer = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;textContainer&#x27;</span>);
+<span class="hljs-keyword">const</span> cursor = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;cursor&#x27;</span>);
+<span class="hljs-keyword">let</span> cursorPosition = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">const</span> canvas = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;canvas&#x27;</span>);
+<span class="hljs-keyword">const</span> ctx = canvas.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">&#x27;2d&#x27;</span>);
+<span class="hljs-keyword">const</span> testText = {
+    <span class="hljs-number">0</span>: <span class="hljs-string">&quot;なまむぎなまごめなまたまご&quot;</span>,
+    <span class="hljs-number">1</span>: <span class="hljs-string">&quot;となりのきゃくはよくかきくうきゃくだ&quot;</span>,
+    <span class="hljs-number">2</span>: <span class="hljs-string">&quot;とりのちにかなしめどうおのちにかなしまず&quot;</span>
+}
+
+<span class="hljs-comment">// dom.textContent = testText[1];</span>
+
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">draw</span>(<span class="hljs-params"></span>) {
+    ctx.<span class="hljs-property">font</span> = <span class="hljs-string">&quot;20px serif&quot;</span>;
+    ctx.<span class="hljs-property">fillStyle</span> = <span class="hljs-string">&quot;orange&quot;</span>;
+    ctx.<span class="hljs-title function_">fillText</span>(testText[<span class="hljs-number">0</span>], <span class="hljs-number">10</span>, <span class="hljs-number">50</span>);
+}
+
+<span class="hljs-title function_">draw</span>();
+
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;keydown&#x27;</span>, handleKeyDown);
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">handleKeyDown</span>(<span class="hljs-params">event</span>) {
+    <span class="hljs-comment">// 何かしらのキーが押されたときにカーソルを移動</span>
+    <span class="hljs-title function_">moveCursor</span>();
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">moveCursor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">const</span> characters = textContainer.<span class="hljs-property">textContent</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+    <span class="hljs-keyword">if</span> (cursorPosition &lt; characters.<span class="hljs-property">length</span>) {
+        <span class="hljs-keyword">const</span> currentCharacter = characters[cursorPosition];
+        <span class="hljs-keyword">const</span> characterWidth = textContainer.<span class="hljs-property">offsetWidth</span> / characters.<span class="hljs-property">length</span>;
+
+        <span class="hljs-comment">// カーソルの位置を更新</span>
+        <span class="hljs-keyword">const</span> newPosition = cursorPosition * characterWidth;
+        cursor.<span class="hljs-property">style</span>.<span class="hljs-property">left</span> = <span class="hljs-string">`<span class="hljs-subst">${newPosition}</span>px`</span>;
+
+        <span class="hljs-comment">// カーソルの位置を次の文字に移動</span>
+        cursorPosition++;
+
+        <span class="hljs-comment">// カーソルが最後の文字に達したらリセット</span>
+        <span class="hljs-keyword">if</span> (cursorPosition === characters.<span class="hljs-property">length</span>) {
+            <span class="hljs-title function_">resetCursor</span>();
+        }
+    }
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">resetCursor</span>(<span class="hljs-params"></span>) {
+    cursorPosition = <span class="hljs-number">0</span>;
+    cursor.<span class="hljs-property">style</span>.<span class="hljs-property">left</span> = <span class="hljs-string">&#x27;0px&#x27;</span>;
+}
+</code></pre>
+<h2 id="カーソルが進むdiv問題あり">カーソルが進む(<code>div</code>)(問題あり)</h2>
+<p><code>&lt;div id=&quot;textContainer&quot;&gt;なまむぎなまごめなまたまご.&lt;/div&gt;</code>
+適当なキーを押すことでこの文字列の一文字ずつカーソルが進む。</p>
+<p>背景色を変えることでカーソルを表現しており、カーソル対象の文字には
+<code>&lt;span class=&quot;highlight&quot;&gt;&lt;/span&gt;</code>このタグが付与される。</p>
+<p>しかし最後の一文字だけこのタグが付与されない。</p>
+<p><code>join()</code>のせい？</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> textContainer = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;textContainer&#x27;</span>);
+<span class="hljs-keyword">const</span> characters = textContainer.<span class="hljs-property">textContent</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+<span class="hljs-keyword">let</span> cursorPosition = <span class="hljs-number">0</span>;
+
+<span class="hljs-comment">// キー入力を検知する</span>
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;keydown&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+    <span class="hljs-title function_">moveCursor</span>();
+});
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">moveCursor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">if</span> (cursorPosition &lt; characters.<span class="hljs-property">length</span>) {
+        <span class="hljs-comment">// カーソル位置の文字に対して背景色を変更</span>
+        characters[cursorPosition - <span class="hljs-number">1</span>] = <span class="hljs-string">`&lt;span class=&quot;highlight&quot;&gt;<span class="hljs-subst">${characters[cursorPosition]}</span>&lt;/span&gt;`</span>;
+        textContainer.<span class="hljs-property">innerHTML</span> = characters.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+
+        <span class="hljs-comment">// カーソルの位置を次の文字に移動</span>
+        cursorPosition++;
+
+        <span class="hljs-comment">// カーソルが最後の文字に達したらリセット</span>
+        <span class="hljs-keyword">if</span> (cursorPosition === characters.<span class="hljs-property">length</span> + <span class="hljs-number">1</span>) {
+            <span class="hljs-title function_">resetCursor</span>();
+        }
+    }
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">resetCursor</span>(<span class="hljs-params"></span>) {
+    cursorPosition = <span class="hljs-number">0</span>;
+
+    <span class="hljs-comment">// 全ての文字の背景色をリセット</span>
+    characters.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">character, index</span>) =&gt;</span> {
+        characters[index] = character.<span class="hljs-title function_">replace</span>(<span class="hljs-string">&#x27;&lt;span class=&quot;highlight&quot;&gt;&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).<span class="hljs-title function_">replace</span>(<span class="hljs-string">&#x27;&lt;/span&gt;&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>);
+    });
+
+    textContainer.<span class="hljs-property">innerHTML</span> = characters.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+}
+
+<span class="hljs-comment">// 配列: 13</span>
+<span class="hljs-comment">// length: 13</span>
+</code></pre>
+<h2 id="canvasで"><code>canvas</code>で</h2>
+<pre><code class="language-js">        <span class="hljs-keyword">const</span> canvas = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;typingCanvas&#x27;</span>);
+        <span class="hljs-keyword">const</span> ctx = canvas.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">&#x27;2d&#x27;</span>);
+        <span class="hljs-keyword">const</span> testText = <span class="hljs-string">&quot;なまむぎなまごめなまたまご&quot;</span>;
+        <span class="hljs-keyword">const</span> columnWidth = <span class="hljs-number">20</span>; <span class="hljs-comment">// 文字の幅</span>
+        <span class="hljs-keyword">const</span> rowHeight = <span class="hljs-number">25</span>; <span class="hljs-comment">// 文字の高さ</span>
+        <span class="hljs-keyword">let</span> cursorPosition = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">drawText</span>(<span class="hljs-params"></span>) {
+            ctx.<span class="hljs-title function_">clearRect</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, canvas.<span class="hljs-property">width</span>, canvas.<span class="hljs-property">height</span>);
+            ctx.<span class="hljs-property">font</span> = <span class="hljs-string">&quot;20px serif&quot;</span>;
+
+            <span class="hljs-comment">// カーソルの位置に背景色を描画</span>
+            <span class="hljs-keyword">const</span> cursorX = cursorPosition * columnWidth;
+            ctx.<span class="hljs-property">fillStyle</span> = <span class="hljs-string">&quot;lightblue&quot;</span>;
+            ctx.<span class="hljs-title function_">fillRect</span>(cursorX, <span class="hljs-number">4</span>, columnWidth, rowHeight);
+            <span class="hljs-comment">// 文字列を1文字ずつ描画</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; testText.<span class="hljs-property">length</span>; i++) {
+                <span class="hljs-keyword">const</span> x = i * columnWidth;
+                <span class="hljs-keyword">const</span> y = rowHeight;
+                ctx.<span class="hljs-property">fillStyle</span> = <span class="hljs-string">&quot;orange&quot;</span>;
+                ctx.<span class="hljs-title function_">fillText</span>(testText[i], x, y);
+            }
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">moveCursor</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-comment">// カーソルを次に進める</span>
+            cursorPosition++;
+
+            <span class="hljs-comment">// カーソルが最後の文字に到達したらリセット</span>
+            <span class="hljs-keyword">if</span> (cursorPosition === testText.<span class="hljs-property">length</span>) {
+                <span class="hljs-title function_">resetCursor</span>();
+            }
+
+            <span class="hljs-comment">// テキストを再描画</span>
+            <span class="hljs-title function_">drawText</span>();
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">resetCursor</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-comment">// カーソルを最初の位置に戻す</span>
+            cursorPosition = <span class="hljs-number">0</span>;
+
+            <span class="hljs-comment">// テキストを再描画</span>
+            <span class="hljs-title function_">drawText</span>();
+        }
+
+        <span class="hljs-comment">// キー入力を検知する</span>
+        <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;keydown&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+            <span class="hljs-keyword">if</span> (e.<span class="hljs-property">key</span> === <span class="hljs-string">&quot;Enter&quot;</span> || e.<span class="hljs-property">key</span> === <span class="hljs-string">&quot;Spacebar&quot;</span> || e.<span class="hljs-property">key</span> === <span class="hljs-string">&quot; &quot;</span>) {
+                <span class="hljs-comment">// カーソルを進める</span>
+                <span class="hljs-title function_">moveCursor</span>();
+            }
+        });
+
+        <span class="hljs-comment">// 最初のテキスト描画</span>
+        <span class="hljs-title function_">drawText</span>();
+</code></pre>
+<h2 id="文字列とカーソルの座標をオブジェクトに保存する">文字列とカーソルの座標をオブジェクトに保存する</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> canvas = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;canvas&#x27;</span>);
+<span class="hljs-keyword">const</span> ctx = canvas.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">&#x27;2d&#x27;</span>);
+<span class="hljs-keyword">const</span> testText = {
+    <span class="hljs-number">0</span>: <span class="hljs-string">&quot;なまむぎなまごめなまたまご&quot;</span>,
+    <span class="hljs-number">1</span>: <span class="hljs-string">&quot;となりのきゃくはよくかきくうきゃくだ&quot;</span>,
+    <span class="hljs-number">2</span>: <span class="hljs-string">&quot;とりのちにかなしめどうおのちにかなしまず&quot;</span>
+}
+
+<span class="hljs-keyword">const</span> textPosition = { <span class="hljs-attr">x</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">50</span> }; <span class="hljs-comment">// テキストの座標情報</span>
+<span class="hljs-keyword">const</span> rectPosition = { <span class="hljs-attr">x</span>: <span class="hljs-number">9</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">32</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">22</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">22</span> }; <span class="hljs-comment">// 図形の座標情報</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">drawText</span>(<span class="hljs-params"></span>) {
+    ctx.<span class="hljs-property">font</span> = <span class="hljs-string">&quot;20px serif&quot;</span>;
+    ctx.<span class="hljs-property">fillStyle</span> = <span class="hljs-string">&quot;orange&quot;</span>;
+    ctx.<span class="hljs-title function_">fillText</span>(testText[<span class="hljs-number">2</span>], textPosition.<span class="hljs-property">x</span>, textPosition.<span class="hljs-property">y</span>);
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">drawRect</span>(<span class="hljs-params"></span>) {
+    ctx.<span class="hljs-title function_">rect</span>(rectPosition.<span class="hljs-property">x</span>, rectPosition.<span class="hljs-property">y</span>, rectPosition.<span class="hljs-property">width</span>, rectPosition.<span class="hljs-property">height</span>);
+    ctx.<span class="hljs-property">fillStyle</span> = <span class="hljs-string">&quot;white&quot;</span>;
+    ctx.<span class="hljs-title function_">fill</span>();
+}
+
+<span class="hljs-title function_">drawRect</span>();
+<span class="hljs-title function_">drawText</span>();
+
+<span class="hljs-keyword">const</span> characters = testText[<span class="hljs-number">1</span>].<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(characters[<span class="hljs-number">2</span>]); <span class="hljs-comment">// &quot;な&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(testText[<span class="hljs-number">2</span>].<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;&#x27;</span>)[<span class="hljs-number">3</span>]);<span class="hljs-comment">// &quot;ち&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(ctx.<span class="hljs-title function_">measureText</span>(testText[<span class="hljs-number">2</span>].<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;&#x27;</span>)[<span class="hljs-number">3</span>]));<span class="hljs-comment">// テキスト情報のオブジェクト</span>
+</code></pre>
+
+        <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+        <script async type="text/javascript">
+/* From extension marp-team.marp-vscode */
+(()=>{var U=Object.defineProperty;var d=($,E)=>U($,"name",{value:E,configurable:!0});(()=>{var $={676:(w,b,g)=>{w.exports=g(185)},185:(w,b)=>{"use strict";var g;g={value:!0};const x={h1:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"1"},style:"display: block; font-size: 2em; margin-block-start: 0.67em; margin-block-end: 0.67em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h2:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"2"},style:"display: block; font-size: 1.5em; margin-block-start: 0.83em; margin-block-end: 0.83em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h3:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"3"},style:"display: block; font-size: 1.17em; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h4:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"4"},style:"display: block; margin-block-start: 1.33em; margin-block-end: 1.33em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h5:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"5"},style:"display: block; font-size: 0.83em; margin-block-start: 1.67em; margin-block-end: 1.67em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h6:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"6"},style:"display: block; font-size: 0.67em; margin-block-start: 2.33em; margin-block-end: 2.33em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},span:{proto:()=>HTMLSpanElement},pre:{proto:()=>HTMLElement,style:"display: block; font-family: monospace; white-space: pre; margin: 1em 0; --marp-auto-scaling-white-space: pre;"}},k="data-marp-auto-scaling-wrapper",u="data-marp-auto-scaling-svg",c="data-marp-auto-scaling-container",T=class T extends HTMLElement{constructor(){super(),this.svgPreserveAspectRatio="xMinYMid meet";const s=d(i=>([n])=>{const{width:e,height:t}=n.contentRect;this[i]={width:e,height:t},this.updateSVGRect()},"t");this.attachShadow({mode:"open"}),this.containerObserver=new ResizeObserver(s("containerSize")),this.wrapperObserver=new ResizeObserver((...i)=>{s("wrapperSize")(...i),this.flushSvgDisplay()})}static get observedAttributes(){return["data-downscale-only"]}connectedCallback(){var s,i,n,e,t;this.shadowRoot.innerHTML=`
+<style>
+  svg[${u}] { display: block; width: 100%; height: auto; vertical-align: top; }
+  span[${c}] { display: table; white-space: var(--marp-auto-scaling-white-space, nowrap); width: max-content; }
+</style>
+<div ${k}>
+  <svg part="svg" ${u}>
+    <foreignObject><span ${c}><slot></slot></span></foreignObject>
+  </svg>
+</div>
+    `.split(/\n\s*/).join(""),this.wrapper=(s=this.shadowRoot.querySelector(`div[${k}]`))!==null&&s!==void 0?s:void 0;const o=this.svg;this.svg=(n=(i=this.wrapper)===null||i===void 0?void 0:i.querySelector(`svg[${u}]`))!==null&&n!==void 0?n:void 0,this.svg!==o&&(this.svgComputedStyle=this.svg?window.getComputedStyle(this.svg):void 0),this.container=(t=(e=this.svg)===null||e===void 0?void 0:e.querySelector(`span[${c}]`))!==null&&t!==void 0?t:void 0,this.observe()}disconnectedCallback(){this.svg=void 0,this.svgComputedStyle=void 0,this.wrapper=void 0,this.container=void 0,this.observe()}attributeChangedCallback(){this.observe()}flushSvgDisplay(){const{svg:s}=this;s&&(s.style.display="inline",requestAnimationFrame(()=>{s.style.display=""}))}observe(){this.containerObserver.disconnect(),this.wrapperObserver.disconnect(),this.wrapper&&this.wrapperObserver.observe(this.wrapper),this.container&&this.containerObserver.observe(this.container),this.svgComputedStyle&&this.observeSVGStyle(this.svgComputedStyle)}observeSVGStyle(s){const i=d(()=>{const n=(()=>{const e=s.getPropertyValue("--preserve-aspect-ratio");return e?e.trim():`x${(({textAlign:t,direction:o})=>{if(t.endsWith("left"))return"Min";if(t.endsWith("right"))return"Max";if(t==="start"||t==="end"){let a=o==="rtl";return t==="end"&&(a=!a),a?"Max":"Min"}return"Mid"})(s)}YMid meet`})();n!==this.svgPreserveAspectRatio&&(this.svgPreserveAspectRatio=n,this.updateSVGRect()),s===this.svgComputedStyle&&requestAnimationFrame(i)},"e");i()}updateSVGRect(){var s,i,n,e,t,o,a;let p=Math.ceil((i=(s=this.containerSize)===null||s===void 0?void 0:s.width)!==null&&i!==void 0?i:0);const h=Math.ceil((e=(n=this.containerSize)===null||n===void 0?void 0:n.height)!==null&&e!==void 0?e:0);this.dataset.downscaleOnly!==void 0&&(p=Math.max(p,(o=(t=this.wrapperSize)===null||t===void 0?void 0:t.width)!==null&&o!==void 0?o:0));const f=(a=this.svg)===null||a===void 0?void 0:a.querySelector(":scope > foreignObject");if(f?.setAttribute("width",`${p}`),f?.setAttribute("height",`${h}`),this.svg&&(this.svg.setAttribute("viewBox",`0 0 ${p} ${h}`),this.svg.setAttribute("preserveAspectRatio",this.svgPreserveAspectRatio),this.svg.style.height=p<=0||h<=0?"0":""),this.container){const _=this.svgPreserveAspectRatio.toLowerCase();this.container.style.marginLeft=_.startsWith("xmid")||_.startsWith("xmax")?"auto":"0",this.container.style.marginRight=_.startsWith("xmi")?"auto":"0"}}};d(T,"s");let r=T;const m=d((l,{attrs:s={},style:i})=>class extends l{constructor(...n){super(...n);for(const[e,t]of Object.entries(s))this.hasAttribute(e)||this.setAttribute(e,t);this.attachShadow({mode:"open"})}static get observedAttributes(){return["data-auto-scaling"]}connectedCallback(){this._update()}attributeChangedCallback(){this._update()}_update(){const n=i?`<style>:host { ${i} }</style>`:"";let e="<slot></slot>";const{autoScaling:t}=this.dataset;t!==void 0&&(e=`<marp-auto-scaling exportparts="svg:auto-scaling" ${t==="downscale-only"?"data-downscale-only":""}>${e}</marp-auto-scaling>`),this.shadowRoot.innerHTML=n+e}},"o");let v;const j=Symbol();let C;const z="marpitSVGPolyfill:setZoomFactor,",A=Symbol(),D=Symbol(),W=d(()=>{const l=navigator.vendor==="Apple Computer, Inc.",s=l?[B]:[],i={then:n=>(l?(async()=>{if(C===void 0){const e=document.createElement("canvas");e.width=10,e.height=10;const t=e.getContext("2d"),o=new Image(10,10),a=new Promise(p=>{o.addEventListener("load",()=>p())});o.crossOrigin="anonymous",o.src="data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2210%22%20height%3D%2210%22%20viewBox%3D%220%200%201%201%22%3E%3CforeignObject%20width%3D%221%22%20height%3D%221%22%20requiredExtensions%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml%22%3E%3Cdiv%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml%22%20style%3D%22width%3A%201px%3B%20height%3A%201px%3B%20background%3A%20red%3B%20position%3A%20relative%22%3E%3C%2Fdiv%3E%3C%2FforeignObject%3E%3C%2Fsvg%3E",await a,t.drawImage(o,0,0),C=t.getImageData(5,5,1,1).data[3]<128}return C})().then(e=>{n?.(e?[B]:[])}):n?.([]),i)};return Object.assign(s,i)},"h");let H,O;function B(l){const s=typeof l=="object"&&l.target||document,i=typeof l=="object"?l.zoom:l;window[D]||(Object.defineProperty(window,D,{configurable:!0,value:!0}),document.body.style.zoom=1.0001,document.body.offsetHeight,document.body.style.zoom=1,window.addEventListener("message",({data:e,origin:t})=>{if(t===window.origin)try{if(e&&typeof e=="string"&&e.startsWith(z)){const[,o]=e.split(","),a=Number.parseFloat(o);Number.isNaN(a)||(O=a)}}catch(o){console.error(o)}}));let n=!1;Array.from(s.querySelectorAll("svg[data-marpit-svg]"),e=>{var t,o,a,p;e.style.transform||(e.style.transform="translateZ(0)");const h=i||O||e.currentScale||1;H!==h&&(H=h,n=h);const f=e.getBoundingClientRect(),{length:_}=e.children;for(let F=0;F<_;F+=1){const S=e.children[F];if(S.getScreenCTM){const y=S.getScreenCTM();if(y){const I=(o=(t=S.x)===null||t===void 0?void 0:t.baseVal.value)!==null&&o!==void 0?o:0,Z=(p=(a=S.y)===null||a===void 0?void 0:a.baseVal.value)!==null&&p!==void 0?p:0,Y=S.children.length;for(let R=0;R<Y;R+=1){const N=S.children[R];if(N.tagName==="SECTION"){const{style:q}=N;q.transformOrigin||(q.transformOrigin=`${-I}px ${-Z}px`),q.transform=`scale(${h}) matrix(${y.a}, ${y.b}, ${y.c}, ${y.d}, ${y.e-f.left}, ${y.f-f.top}) translateZ(0.0001px)`;break}}}}}}),n!==!1&&Array.from(s.querySelectorAll("iframe"),({contentWindow:e})=>{e?.postMessage(`${z}${n}`,window.origin==="null"?"*":window.origin)})}d(B,"u");function P({once:l=!1,target:s=document}={}){const i=function(n=document){if(n[A])return n[A];let e=!0;const t=d(()=>{e=!1,delete n[A]},"i");Object.defineProperty(n,A,{configurable:!0,value:t});let o=[],a=!1;(async()=>{try{o=await W()}finally{a=!0}})();const p=d(()=>{for(const h of o)h({target:n});a&&o.length===0||e&&window.requestAnimationFrame(p)},"o");return p(),t}(s);return l?(i(),()=>{}):i}d(P,"v"),H=1,O=void 0;const G=P,M=Symbol(),L=d((l=document)=>{if(typeof window>"u")throw new Error("Marp Core's browser script is valid only in browser context.");if(((e=document)=>{const t=window[j];t||customElements.define("marp-auto-scaling",r);for(const o of Object.keys(x)){const a=`marp-${o}`,p=x[o].proto();v!=null||(v=!!document.createElement("div",{is:"marp-auto-scaling"}).outerHTML.startsWith("<div is")),v&&p!==HTMLElement?t||customElements.define(a,m(p,{style:x[o].style}),{extends:o}):(t||customElements.define(a,m(HTMLElement,x[o])),e.querySelectorAll(`${o}[is="${a}"]`).forEach(h=>{h.outerHTML=h.outerHTML.replace(new RegExp(`^<${o}`,"i"),`<${a}`).replace(new RegExp(`</${o}>$`,"i"),`</${a}>`)}))}window[j]=!0})(l),l[M])return l[M];const s=P({target:l}),i=d(()=>{s(),delete l[M]},"n"),n=Object.assign(i,{cleanup:i,update:()=>L(l)});return Object.defineProperty(l,M,{configurable:!0,value:n}),n},"y");b.browser=L,g=L,g=G}},E={};function V(w){var b=E[w];if(b!==void 0)return b.exports;var g=E[w]={exports:{}};return $[w](g,g.exports,V),g.exports}d(V,"__webpack_require__");var J={};(()=>{"use strict";var w=V(676);function b(){let u,c;const r=d(()=>{const m=document.getElementById("__marp-vscode"),v=!!m;u!==v?(document.body.classList.toggle("marp-vscode",v),v?c=(0,w.browser)():(c?.cleanup(),c=void 0),u=v):v&&c?.update(),u?(m&&g(m),x()):k()},"updateCallback");window.addEventListener("load",()=>window.setTimeout(r,100)),window.addEventListener("vscode.markdown.updateContent",r),r()}d(b,"preview");const g=d(u=>{u.querySelectorAll("[is]").forEach(c=>{if(c.nodeName.includes("-")||document.createElement(c.nodeName).constructor!==c.constructor)return;const{outerHTML:m}=c;c.outerHTML=m,console.debug("[marp-vscode] Custom element has been upgraded forcibly:",m.slice(0,m.indexOf(">")+1||void 0))})},"forceUpgradeCustomElements"),x=d(()=>{const u=document.querySelectorAll("style:not(#__marp-vscode-style,#_defaultStyles,[data-marp-vscode-body])"),c=document.querySelectorAll('link[rel="stylesheet"][href]:not([href*="marp-vscode"])');u.forEach(r=>{r.closest("#__marp-vscode")||(r.dataset.marpVscodeBody=r.textContent??"",r.textContent="")}),c.forEach(r=>{if(r.closest("#__marp-vscode"))return;const{href:m}=r;r.dataset.marpVscodeHref=m,r.removeAttribute("href")})},"removeStyles"),k=d(()=>{const u=document.querySelectorAll("style[data-marp-vscode-body]"),c=document.querySelectorAll("link[data-marp-vscode-href]");u.forEach(r=>{r.textContent=r.dataset.marpVscodeBody||"",delete r.dataset.marpVscodeBody}),c.forEach(r=>{r.href=r.dataset.marpVscodeHref||"",delete r.dataset.marpVscodeHref})},"restoreStyles");b()})()})();})();
+
+</script>
+
+    </body>
+    </html>
